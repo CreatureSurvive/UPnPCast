@@ -106,6 +106,8 @@ struct FormattingTests {
         #expect(UPnPTime.format(3725) == "1:02:05")
         #expect(UPnPTime.format(59.25, fractional: true) == "0:00:59.250")
         #expect(UPnPTime.format(-5) == "0:00:00")
+        #expect(UPnPTime.format(1e300) == "999999:59:59")
+        #expect(UPnPTime.format(.nan) == "0:00:00")
         #expect(UPnPTime.parse("1:02:05") == 3725)
         #expect(UPnPTime.parse("00:00:10.5") == 10.5)
         #expect(UPnPTime.parse("0:00:01.1/4") == 1.25)

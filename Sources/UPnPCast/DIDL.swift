@@ -110,7 +110,8 @@ public struct MediaItem: Sendable, Hashable {
 public enum UPnPTime {
     /// Formats seconds as `H:MM:SS` (or `H:MM:SS.mmm`).
     public static func format(_ seconds: TimeInterval, fractional: Bool = false) -> String {
-        let clamped = max(0, seconds.isFinite ? seconds : 0)
+        // Clamp to 999,999 hours so absurd values cannot overflow Int.
+        let clamped = min(3_599_999_999, max(0, seconds.isFinite ? seconds : 0))
         let whole = Int(clamped)
         let base = String(format: "%d:%02d:%02d", whole / 3600, (whole % 3600) / 60, whole % 60)
         guard fractional else { return base }
